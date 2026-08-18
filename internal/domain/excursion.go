@@ -48,18 +48,6 @@ type ReviewDecision struct {
 	CreatedAt   time.Time
 }
 
-func (e Excursion) ApplyDecisionToSample(batch SampleBatch, decision ExcursionStatus, rationale string) SampleBatch {
-	updated := batch.Clone()
-	if decision == ExcursionCleared {
-		updated.State = SampleReleased
-		updated.QuarantineNote = ""
-	}
-	if decision == ExcursionRejected {
-		return batch
-	}
-	return updated
-}
-
 func (s ExcursionStatus) IsResolved() bool {
 	return s == ExcursionCleared || s == ExcursionRejected
 }
